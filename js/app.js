@@ -34,17 +34,19 @@ let gap = 90; //расстояние между трубами
 let xPos = 10; // bird position X
 let yPos = 270; // bird position Y
 
-let grav = 1; // bird gravitation
+let grav = 1.8; // bird gravitation
+
+let score = 0;
 
 //действия при нажатии кнопки
 document.addEventListener(`keydown`, moveUp);
 
 function moveUp() {
-    yPos = yPos - 20;
+    yPos = yPos - 40;
+    fly.play();
 }
 
 // создание блоков
-
 const pipe = [];
 
 pipe[0] = {
@@ -65,7 +67,7 @@ function draw() {
         pipe[i].x = pipe[i].x - 1; //движение труб
 
         //повторное создание труб
-        if(pipe[i].x ==   125) {
+        if(pipe[i].x == 125) {
             pipe.push(
                 {
                     x: cvs.width,
@@ -74,6 +76,21 @@ function draw() {
             );
         }
 
+        //отслеживание прикосновений
+        if(xPos + bird.width >= pipe[i].x 
+            && xPos <= pipe[i].x + pipeUp.width
+            && (yPos <= pipe[i].y + pipeUp.height 
+                || yPos + bird.height >= pipe[i].y + pipeBottom.height)
+                || yPos + bird.height >= cvs.height - fg.height
+            ) {
+                location.reload();
+        }
+
+        //подсчет очков
+        if (pipe[i].x == 5) {
+            score++; 
+            score_audio.play();
+        }
 
     }
 
@@ -81,6 +98,10 @@ function draw() {
     ctx.drawImage(bird, xPos, yPos);
 
     yPos = yPos + grav;
+
+    ctx.fillStyle = `#000`;
+    ctx.font = `24px Verdana`;
+    ctx.fillText(`Счет: ` + score, 10, cvs.height - 20);
 
     requestAnimationFrame(draw);
 
