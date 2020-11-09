@@ -77,13 +77,17 @@ function draw() {
         }
 
         //отслеживание прикосновений
-        if(xPos + bird.width >= pipe[i].x 
+        if((xPos + bird.width >= pipe[i].x 
             && xPos <= pipe[i].x + pipeUp.width
             && (yPos <= pipe[i].y + pipeUp.height 
-                || yPos + bird.height >= pipe[i].y + pipeBottom.height)
-                || yPos + bird.height >= cvs.height - fg.height
+                || yPos + bird.height >= pipe[i].y + pipeBottom.height))
             ) {
                 location.reload();
+        }
+
+        //отслеживание ударов об землю
+        if (yPos + bird.height >= cvs.height - fg.height) {            
+            location.reload();    
         }
 
         //подсчет очков
