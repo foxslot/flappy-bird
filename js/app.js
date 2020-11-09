@@ -40,7 +40,7 @@ let score = 0;
 
 //действия при нажатии кнопки
 document.addEventListener(`keydown`, moveUp);
-document.addEventListener(`click`, moveUp);
+//document.addEventListener(`click`, moveUp);
 //document.addEventListener(`touchstart`, moveUp);
 
 function moveUp() {
