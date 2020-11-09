@@ -40,6 +40,7 @@ let score = 0;
 
 //действия при нажатии кнопки
 document.addEventListener(`keydown`, moveUp);
+document.addEventListener(`click`, moveUp);
 
 function moveUp() {
     yPos = yPos - 40;
